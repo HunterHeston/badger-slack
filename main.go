@@ -21,7 +21,7 @@ func main() {
 // handler logic
 /////////////////
 
-type RecordInformation struct {
+type RecordInformationRequest struct {
 	RecordType    string    `json:"RecordType"`
 	Type          string    `json:"Type"`
 	TypeCode      int       `json:"TypeCode"`
@@ -34,11 +34,39 @@ type RecordInformation struct {
 	BouncedAt     time.Time `json:"BouncedAt"`
 }
 
+type RecordInformationResponse struct {
+	NotificationSent bool   `json:"NotificationSent"`
+	Message          string `json:"Message"`
+}
+
 // Handle POST requests and optionally send a message to a Slack channel
 func handleRecord(c echo.Context) error {
-	recordInfo := RecordInformation{}
+
+	// Parse the request body.
+	recordInfo := RecordInformationRequest{}
 	if err := c.Bind(&recordInfo); err != nil {
 		return err
 	}
-	return c.JSON(200, recordInfo)
+
+	responseInfo := RecordInformationResponse{
+		NotificationSent: false,
+		Message:          "Message did not meet criteria for sending a notification.",
+	}
+
+	if shouldNotifySlack(recordInfo) {
+		responseInfo.NotificationSent = true
+		responseInfo.Message = "Message met criteria for sending a notification."
+
+		// TODO: Send a message to a Slack channel.
+	}
+
+	return c.JSON(200, responseInfo)
+}
+
+// simple
+func shouldNotifySlack(recordInfo RecordInformationRequest) bool {
+	// Very simple check.
+	// Could turn this into a named constant or structured type later.
+	// Could also check the values of additional fields.
+	return recordInfo.Type == "SpamNotification"
 }
