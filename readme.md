@@ -4,12 +4,13 @@
 
 - [echo](https://echo.labstack.com/) framework for Go.
 - [slack-go](https://github.com/slack-go/slack) a community maintained slack API as a library.
+- [dotenv](go get github.com/joho/godotenv) parse and process .env files.
 
 ## Testing
 
 Quick and dirty testing to start:
 
-Payload that sends the notification:
+### Payload that sends the notification:
 
 ```curl
 curl -X POST \
@@ -29,7 +30,7 @@ curl -X POST \
   }'
 ```
 
-Payload that **does not** sends the notification:
+### Payload that **does not** sends the notification:
 
 ```curl
 curl -X POST \
