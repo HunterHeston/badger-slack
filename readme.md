@@ -2,7 +2,8 @@
 
 ## Dependencies
 
-- Just the [echo](https://echo.labstack.com/) framework for Go.
+- [echo](https://echo.labstack.com/) framework for Go.
+- [slack-go](https://github.com/slack-go/slack) a community maintained slack API as a library.
 
 ## Testing
 
