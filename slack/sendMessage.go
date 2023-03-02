@@ -19,7 +19,7 @@ func init() {
 	// read in the .env file
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		fmt.Println("Error loading .env file. Variables may not be set....")
 	}
 
 	// grab values from the .env file
