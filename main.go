@@ -50,16 +50,22 @@ func handleRecord(c echo.Context) error {
 		return err
 	}
 
+	// default response is not to send a notification
 	responseInfo := RecordInformationResponse{
 		NotificationSent: false,
 		Message:          "Message did not meet criteria for sending a notification.",
 	}
 
 	if shouldNotifySlack(recordInfo) {
+		err := slack.SendMessageToSlack(fmt.Sprintf("Spam message from %q sent to %q at %v", recordInfo.From, recordInfo.Email, recordInfo.BouncedAt))
+		if err != nil {
+			// Might want to omit the full error message
+			responseInfo.Message = fmt.Sprintf("Failed to send notification to slack: %v", err)
+			return c.JSON(500, responseInfo)
+		}
+
 		responseInfo.NotificationSent = true
 		responseInfo.Message = "Message met criteria for sending a notification."
-
-		slack.SendMessageToSlack("spam", fmt.Sprintf("Spam notification received at %v", recordInfo.BouncedAt))
 	}
 
 	return c.JSON(200, responseInfo)
