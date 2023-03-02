@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
+	"github.com/hunterheston/honeybadger/slack"
 	"github.com/labstack/echo/v4"
 )
 
@@ -57,7 +59,7 @@ func handleRecord(c echo.Context) error {
 		responseInfo.NotificationSent = true
 		responseInfo.Message = "Message met criteria for sending a notification."
 
-		// TODO: Send a message to a Slack channel.
+		slack.SendMessageToSlack("spam", fmt.Sprintf("Spam notification received at %v", recordInfo.BouncedAt))
 	}
 
 	return c.JSON(200, responseInfo)
