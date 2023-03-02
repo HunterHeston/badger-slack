@@ -16,7 +16,7 @@ func main() {
 	e.POST("/record", handleRecord)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":3001"))
+	e.Logger.Fatal(e.Start(":3000"))
 }
 
 /////////////////
