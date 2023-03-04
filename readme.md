@@ -1,5 +1,11 @@
 # Honeybadger Assignment
 
+## Code of Interest
+
+1. [main.go](main.go) - Server setup and route handling.
+2. [slack/sendMessage.go](slack/sendMessage.go) - Interactions with the slack api
+3. [experiment/main.go](experiment/main.go) - Just a test of the slack api
+
 ## How to setup and run
 
 1. Run `git clone git@github.com:HunterHeston/badger-slack.git`.
@@ -23,7 +29,7 @@ I found these steps and was able to get it working. Your milage may very.
 
 - [echo](https://echo.labstack.com/) framework for Go.
 - [slack-go](https://github.com/slack-go/slack) a community maintained slack API as a library.
-- [dotenv](go get github.com/joho/godotenv) parse and process .env files.
+- [dotenv](github.com/joho/godotenv) parse and process .env files.
 
 ## Testing
 
